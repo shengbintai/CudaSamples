@@ -11,7 +11,7 @@ using namespace cv;
 int main()
 {
 	string path = "./Img/Lena.tif";
-	Mat img = imread(path, IMREAD_UNCHANGED);
+	Mat img = imread(path, IMREAD_UNCHANGED)/9;
 	Mat img_o(img.size(), img.type());
 	int height = img.rows;
 	int width = img.cols;
@@ -26,7 +26,9 @@ int main()
 	calcFltBoxAvg( d_src,  d_dst,  height,  width);
 	CHECKCUDA(cudaMemcpy(img_o.ptr<u8>(0), d_dst, height * width * sizeof(u8),
 		cudaMemcpyDeviceToHost));
-
+	calcFltConv(d_src, d_dst, height, width);
+	CHECKCUDA(cudaMemcpy(img_o.ptr<u8>(0), d_dst, height * width * sizeof(u8),
+		cudaMemcpyDeviceToHost));
 	CHECKCUDA(cudaFree(d_src));
 	CHECKCUDA(cudaFree(d_dst));
 

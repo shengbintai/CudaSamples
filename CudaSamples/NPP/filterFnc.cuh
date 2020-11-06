@@ -6,12 +6,13 @@
 #include <helper_cuda.h>
 #include <nppdefs.h>
 
+#include <opencv2/opencv.hpp>
 #include <stdio.h>
 #include <iostream>
 using u16 = unsigned short;
 using u8 = unsigned char;
 using namespace std;
-
+using namespace cv;
 #ifndef CHECKNPP
 /*
 * Summary: 检查 npp 库函数是否调用成功
@@ -46,3 +47,4 @@ do{                                                                       \
 
 
 void calcFltBoxAvg(const u8* d_src, u8* d_dst, int height, int width);
+void calcFltConv(const u8* d_src, u8* d_dst, int height, int width);
